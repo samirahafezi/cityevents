@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     #apps
     'torontoevents',
     'debug_toolbar',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -106,6 +107,10 @@ DATABASES = {
     }
 }
 
+
+CRONJOBS = [
+    ('*/1 * * * *', 'torontoevents.cronjobs.load_locations.load_locations')
+]
 
 
 # Password validation

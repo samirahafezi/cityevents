@@ -1,0 +1,25 @@
+<html>
+    <h1>Locations:</h1>
+    <table border="1px solid black" border-collapse=collapse>
+        <tr>
+            <th align ="left">Address</th>
+            <th align ="left">Longtitude</th>
+            <th align ="left">Latitude</th>
+            <th align ="left">Centre Line Type</th>
+            <th align ="left">Centre Line ID</th>
+            <th align ="left">PX</th>
+            <th align ="left">Latest Count Date</th>
+        </tr>
+        {% for location in locations %}
+        <tr>
+            <td align ="left">{{location.location_address}}</td>
+            <td align="left">{{location.longtitude}}</td>
+            <td align ="left">{{location.latitude}}</td>
+            <td align ="left">{{location.centreline_type}}</td>
+            <td align ="left">{{location.centreline_id}}</td>
+            <td align ="left">{{location.px}}</td>
+            <td align ="left">{{location.latest_count_date}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</html>
