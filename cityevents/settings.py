@@ -109,7 +109,8 @@ DATABASES = {
 
 
 CRONJOBS = [
-    ('*/1 * * * *', 'torontoevents.cronjobs.load_locations.load_locations')
+    ('*/1 * * * *', 'torontoevents.cronjobs.load_locations.load_locations'),
+    ('*/1 * * * *', 'torontoevents.cronjobs.load_facilities.load_facilities'),
 ]
 
 

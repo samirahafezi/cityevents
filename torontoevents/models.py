@@ -14,6 +14,9 @@ class Location(models.Model):
     latest_count_date = models.DateTimeField()
     created_date = models.DateTimeField(auto_now_add=True) #auto populate the date to now
 
+    def __str__(self):
+        return self.name
+
     def load_locations_data():
         #loop through the csv file line by line
         with open("torontoevents/files/Locations.csv", "r") as file:
@@ -50,6 +53,57 @@ class Location(models.Model):
                         centreline_id = location_line[6], 
                         px = location_line[7], 
                         latest_count_date = location_line[8], 
+                    )
+
+        file.closed
+
+
+class Facility(models.Model):
+    facility_id = models.IntegerField(null=False)
+    location_id = models.ForeignKey(Location, on_delete=models.CASCADE)
+    facility_display_name = models.CharField(max_length=300, default=None, blank=True, null=True)
+    permit = models.CharField(max_length=100, default=None, blank=True, null=True)
+    facility_type = models.CharField(max_length=300, default=None, blank=True, null=True)
+    facility_rating = models.CharField(max_length=100, default=None, blank=True, null=True)
+    asset_name = models.CharField(max_length=300, default=None, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+    
+    def load_facilities_data():
+        #loop through the csv file line by line
+        with open("torontoevents/files/Facilities.csv", "r") as file:
+            next(file) #skip header line
+            for item in file:
+                if not item:
+                    break
+
+                #extract each entry into its own field
+                facility_line = item.split(',')
+                
+                # printing the list using loop
+                # print(*facility_line, sep = ", ")
+
+                facility_count = Facility.objects.filter(facility_id=int(facility_line[1])).count()
+                if facility_count > 0:
+                    Facility.objects.filter(facility_id=int(facility_line[1])).update(
+                        facility_id=facility_line[1], 
+                        location_id=facility_line[2], 
+                        facility_display_name = facility_line[3], 
+                        permit = facility_line[4], 
+                        facility_type = facility_line[5], 
+                        facility_rating = facility_line[6], 
+                        asset_name = facility_line[7], 
+                    )
+                else:
+                    Facility.objects.create(
+                        facility_id=facility_line[1], 
+                        location_id=facility_line[2], 
+                        facility_display_name = facility_line[3], 
+                        permit = facility_line[4], 
+                        facility_type = facility_line[5], 
+                        facility_rating = facility_line[6], 
+                        asset_name = facility_line[7], 
                     )
 
         file.closed
