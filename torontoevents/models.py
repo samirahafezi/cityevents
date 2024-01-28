@@ -14,8 +14,8 @@ class Location(models.Model):
     latest_count_date = models.DateTimeField()
     created_date = models.DateTimeField(auto_now_add=True) #auto populate the date to now
 
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.name
 
     def load_locations_data():
         #loop through the csv file line by line
@@ -60,15 +60,15 @@ class Location(models.Model):
 
 class Facility(models.Model):
     facility_id = models.IntegerField(null=False)
-    location_id = models.ForeignKey(Location, on_delete=models.CASCADE)
+    location_id = models.IntegerField(null=False)
     facility_display_name = models.CharField(max_length=300, default=None, blank=True, null=True)
     permit = models.CharField(max_length=100, default=None, blank=True, null=True)
     facility_type = models.CharField(max_length=300, default=None, blank=True, null=True)
     facility_rating = models.CharField(max_length=100, default=None, blank=True, null=True)
     asset_name = models.CharField(max_length=300, default=None, blank=True, null=True)
 
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.name
     
     def load_facilities_data():
         #loop through the csv file line by line

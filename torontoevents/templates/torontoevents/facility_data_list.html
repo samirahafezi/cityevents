@@ -1,0 +1,25 @@
+<html>
+    <h1>Facilities:</h1>
+    <table border="1px solid black" border-collapse=collapse>
+        <tr>
+            <th align ="left">Facility ID</th>
+            <th align ="left">Location ID</th>
+            <th align ="left">Facility Type (Display Name)</th>
+            <th align ="left">Permit</th>
+            <th align ="left">Facility Type</th>
+            <th align ="left">Facility Rating</th>
+            <th align ="left">Asset Name</th>
+        </tr>
+        {% for facility in facilities %}
+        <tr>
+            <td align ="left">{{facility.facility_id}}</td>
+            <td align="left">{{facility.location_id}}</td>
+            <td align ="left">{{facility.facility_display_name}}</td>
+            <td align ="left">{{facility.permit}}</td>
+            <td align ="left">{{facility.facility_type}}</td>
+            <td align ="left">{{facility.facility_rating}}</td>
+            <td align ="left">{{facility.asset_name}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</html>
