@@ -4,6 +4,7 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from .models import Location
 from .models import Facility
+from .models import RegisteredProgram
 
 # Create your views here.
 
@@ -17,6 +18,10 @@ def list_locations_data(request):
 def list_facilities_data(request):
     all_facilities = Facility.objects.all()
     return render(request, 'torontoevents/facility_data_list.html', {'facilities': all_facilities})
+
+def list_registered_programs_data(request):
+    all_registered_programs = RegisteredProgram.objects.all()
+    return render(request, 'torontoevents/registered_program_data_list.html', {'registered_programs': all_registered_programs})
 
 @login_required(login_url='/admin')
 def authorized(request):

@@ -7,4 +7,5 @@ urlpatterns = [
     path('authorized', views.authorized),
     path('locations/',views.list_locations_data),
     path('facilities/',views.list_facilities_data),
+    path('registeredprograms/',views.list_registered_programs_data),
 ]
