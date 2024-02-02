@@ -140,18 +140,7 @@ class RegisteredProgram(models.Model):
                 csv_data = line
                 reader = csv.reader([csv_data])
                 fields = next(reader)
-                print("Processing: "+fields[1])
-                # print(fields[2])
-                # print(fields[3])
-                # print(fields[4])
-                # print(fields[5])
-                # print(fields[6])
-
-                #extract each entry into its own field
-                # program_line = line.split(',')
-                
-                # printing the list using loop
-                # print(*program_line, sep = ", ")
+                # print("Processing: "+fields[1])
 
                 program_count = RegisteredProgram.objects.filter(course_id=int(fields[1])).count()
                 if program_count > 0:
