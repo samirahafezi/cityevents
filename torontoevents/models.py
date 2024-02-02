@@ -107,3 +107,94 @@ class Facility(models.Model):
                     )
 
         file.closed
+
+
+class RegisteredProgram(models.Model):
+    course_id = models.IntegerField(null=False)
+    location_id = models.IntegerField(null=False)
+    activity_title = models.CharField(max_length=300, default=None, blank=True, null=True)
+    course_title = models.CharField(max_length=300, default=None, blank=True, null=True)
+    activity_description = models.CharField(max_length=3000, default=None, blank=True, null=True)
+    days_of_the_week = models.CharField(max_length=50, default=None, blank=True, null=True)
+    from_to_dates = models.CharField(max_length=300, default=None, blank=True, null=True)
+    start_hour = models.IntegerField()
+    start_min = models.IntegerField()
+    end_hour = models.IntegerField()
+    end_min = models.IntegerField()
+    start_date = models.DateField()
+    efun_url = models.URLField()
+    min_age = models.CharField(max_length=50, default=None, blank=True, null=True)
+    max_age = models.CharField(max_length=50, default=None, blank=True, null=True)
+    program_category = models.CharField(max_length=300, default=None, blank=True, null=True)
+    registration_date = models.DateField()
+    status_information = models.CharField(max_length=300, default=None, blank=True, null=True)
+
+    def load_registered_programs_data():
+        #loop through the csv file line by line
+        with open("torontoevents/files/Registered Programs.csv", "r") as file:
+            next(file) #skip header line
+            for line in file:
+                if not line:
+                    break
+
+                csv_data = line
+                reader = csv.reader([csv_data])
+                fields = next(reader)
+                print("Processing: "+fields[1])
+                # print(fields[2])
+                # print(fields[3])
+                # print(fields[4])
+                # print(fields[5])
+                # print(fields[6])
+
+                #extract each entry into its own field
+                # program_line = line.split(',')
+                
+                # printing the list using loop
+                # print(*program_line, sep = ", ")
+
+                program_count = RegisteredProgram.objects.filter(course_id=int(fields[1])).count()
+                if program_count > 0:
+                    RegisteredProgram.objects.filter(course_id=int(fields[1])).update(
+                    course_id=fields[1],
+                    location_id=fields[2],
+                    activity_title=fields[3],
+                    course_title=fields[4],
+                    activity_description=fields[5],
+                    days_of_the_week=fields[6],
+                    from_to_dates=fields[7],
+                    start_hour=fields[8],
+                    start_min=fields[9],
+                    end_hour=fields[10],
+                    end_min=fields[11],
+                    start_date=fields[12],
+                    efun_url=fields[13],
+                    min_age=fields[14],
+                    max_age=fields[15],
+                    program_category=fields[16],
+                    registration_date=fields[17],
+                    status_information=fields[18],
+                    )
+                else:
+                    RegisteredProgram.objects.create(
+                        course_id=fields[1],
+                        location_id=fields[2],
+                        activity_title=fields[3],
+                        course_title=fields[4],
+                        activity_description=fields[5],
+                        days_of_the_week=fields[6],
+                        from_to_dates=fields[7],
+                        start_hour=fields[8],
+                        start_min=fields[9],
+                        end_hour=fields[10],
+                        end_min=fields[11],
+                        start_date=fields[12],
+                        efun_url=fields[13],
+                        min_age=fields[14],
+                        max_age=fields[15],
+                        program_category=fields[16],
+                        registration_date=fields[17],
+                        status_information=fields[18],
+                    )
+
+        file.closed    
