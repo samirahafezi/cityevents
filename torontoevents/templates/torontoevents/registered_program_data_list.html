@@ -1,5 +1,50 @@
 <html>
-    <body>
-        <h1>Registered Programs!</h1>
-    </body>
+    <h1>Registered Programs:</h1>
+    <table border="1px solid black" border-collapse=collapse>
+        <tr>
+            <th align ="left">Course ID</th>
+            <th align ="left">Location ID</th>
+            <th align ="left">Activity</th>
+            <th align ="left">Course Title</th>
+            <th align ="left">Activity Description</th>
+            <th align ="left">Days of the week</th>
+            <th align ="left">From/To Dates</th>
+            <th align ="left">From/To Time</th>
+            <th align ="left">Start Date</th>
+            <th align ="left">Link</th>
+            <th align ="left">Age</th>
+            <th align ="left">Registration Date</th>
+            <th align ="left">Status</th>
+            <th align ="left">Category</th>
+        </tr>
+        {% for registered_program in registered_programs %}
+        <tr>
+            <td align ="left">{{registered_program.course_id}}</td>
+            <td align="left">{{registered_program.location_id}}</td>
+            <td align ="left">{{registered_program.activity_title}}</td>
+            <td align ="left">{{registered_program.course_title}}</td>
+            <td align ="left">{{registered_program.activity_description}}</td>
+            <td align ="left">{{registered_program.days_of_the_week}}</td>
+            <td align ="left">{{registered_program.from_to_dates}}</td>
+            <td align ="left">{{registered_program.start_hour}}:{{registered_program.start_min}} - {{registered_program.end_hour}}:{{registered_program.end_min}}</td>
+            <td align ="left">{{registered_program.start_date}}</td>
+            <td align ="left"><a href={{registered_program.efun_url}} target="_blank" rel="noopener noreferrer">Link</a></td>
+            <td align ="left">Ages {{registered_program.min_age}} to {{registered_program.max_age}}</td>
+            <td align ="left">{{registered_program.registration_date}}</td>
+            <td align ="left">{{registered_program.status_information}}</td>
+            <td align ="left">{{registered_program.program_category}}</td>
+        </tr>
+        {% endfor %}
+    </table>
 </html>
+
+
+
+    <!-- 
+    start_date = models.DateField()
+    efun_url = models.URLField()
+    min_age = models.CharField(max_length=50, default=None, blank=True, null=True)
+    max_age = models.CharField(max_length=50, default=None, blank=True, null=True)
+    program_category = models.CharField(max_length=300, default=None, blank=True, null=True)
+    registration_date = models.DateField()
+    status_information = models.CharField(max_length=300, default=None, blank=True, null=True) -->
