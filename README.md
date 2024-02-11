@@ -205,7 +205,9 @@ In Terminal, change the current working directory to your local project.
 git init
 ```
 
-3. Add/modify some of the code.
+3. Add/modify some of the code. 
+
+**Note: For now I'm merging directly into the main branch since I still don't have an MVP working flow. Once I have something going, I'll be switching to feature branches and will update these steps.**
 
 4. When you're ready to commit your changes, add the files (this stages them for the first commit):
 ```
