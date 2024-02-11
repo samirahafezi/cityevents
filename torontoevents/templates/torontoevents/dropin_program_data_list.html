@@ -1,0 +1,42 @@
+<html>
+    <h1>Drop In Programs:</h1>
+    <table border="1px solid black" border-collapse=collapse>
+        <tr>
+            <th align ="left">Course ID</th>
+            <th align ="left">Location ID</th>
+            <th align ="left">Course Title</th>
+            <th align ="left">Age</th>
+            <th align ="left">Start Date</th>
+            <th align ="left">Date Range</th>
+            <th align ="left">From/To Time</th>
+            <th align ="left">Start Date</th>
+            <th align ="left">Last Date</th>
+            <th align ="left">Category</th>
+        </tr>
+        {% for dropin_program in dropin_programs %}
+        <tr>
+            <td align ="left">{{dropin_program.course_id}}</td>
+            <td align="left">{{dropin_program.location_id}}</td>
+            <td align ="left">{{dropin_program.course_title}}</td>
+            <td align ="left">Ages {{dropin_program.min_age}} to {{dropin_program.max_age}}</td>
+            <td align ="left">{{dropin_program.start_date}}</td>
+            <td align ="left">{{dropin_program.from_to_dates}}</td>
+            <td align ="left">{{dropin_program.start_hour}}:{{dropin_program.start_min}} - {{dropin_program.end_hour}}:{{dropin_program.end_min}}</td>
+            <td align ="left">{{dropin_program.first_date}}</td>
+            <td align ="left">{{dropin_program.last_date}}</td>
+            <td align ="left">{{dropin_program.category}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</html>
+
+
+
+    <!-- 
+    start_date = models.DateField()
+    efun_url = models.URLField()
+    min_age = models.CharField(max_length=50, default=None, blank=True, null=True)
+    max_age = models.CharField(max_length=50, default=None, blank=True, null=True)
+    program_category = models.CharField(max_length=300, default=None, blank=True, null=True)
+    registration_date = models.DateField()
+    status_information = models.CharField(max_length=300, default=None, blank=True, null=True) -->

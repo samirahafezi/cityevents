@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Location
 from .models import Facility
 from .models import RegisteredProgram
+from .models import DropInProgram
 
 # Create your views here.
 
@@ -22,6 +23,10 @@ def list_facilities_data(request):
 def list_registered_programs_data(request):
     all_registered_programs = RegisteredProgram.objects.all()
     return render(request, 'torontoevents/registered_program_data_list.html', {'registered_programs': all_registered_programs})
+
+def list_dropin_programs_data(request):
+    all_dropin_programs = DropInProgram.objects.all()
+    return render(request, 'torontoevents/dropin_program_data_list.html', {'dropin_programs': all_dropin_programs})
 
 @login_required(login_url='/admin')
 def authorized(request):
