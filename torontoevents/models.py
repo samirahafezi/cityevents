@@ -14,9 +14,6 @@ class Location(models.Model):
     latest_count_date = models.DateTimeField()
     created_date = models.DateTimeField(auto_now_add=True) #auto populate the date to now
 
-    # def __str__(self):
-    #     return self.name
-
     def load_locations_data():
         #loop through the csv file line by line
         with open("torontoevents/files/Locations.csv", "r") as file:
@@ -185,5 +182,81 @@ class RegisteredProgram(models.Model):
                         registration_date=fields[17],
                         status_information=fields[18],
                     )
+
+        file.closed    
+
+
+class DropInProgram(models.Model):
+    location_id = models.IntegerField(null=False)
+    course_id = models.IntegerField(null=False)
+    course_title = models.CharField(max_length=300, default=None, blank=True, null=True)
+    min_age = models.CharField(max_length=50, default=None, blank=True, null=True)
+    max_age = models.CharField(max_length=50, default=None, blank=True, null=True)
+    date_from = models.CharField(max_length=50, default=None, blank=True, null=True)
+    date_range = models.CharField(max_length=3000, default=None, blank=True, null=True)
+    start_date_time = models.DateTimeField()
+    start_hour = models.IntegerField()
+    start_min = models.IntegerField()
+    end_hour = models.IntegerField()
+    end_min = models.IntegerField()
+    category = models.CharField(max_length=300, default=None, blank=True, null=True)
+    first_date = models.DateTimeField()
+    last_date = models.DateTimeField()
+
+    def load_drop_in_programs_data():
+        #loop through the csv file line by line
+        with open("torontoevents/files/Drop-in.csv", "r") as file:
+            next(file) #skip header line
+            for line in file:
+                if not line:
+                    break
+
+                csv_data = line
+                reader = csv.reader([csv_data])
+                fields = next(reader)
+                print("Processing: "+fields[1])
+
+                program_count = DropInProgram.objects.filter(location_id=int(fields[1]), 
+                                                             course_id=int(fields[2]),
+                                                             date_range=fields[7]).count()
+                # DropInProgram.objects.filter(location_id=7, course_id=7479091, date_range='Dec 31 to Jan 6')
+                if program_count > 0:
+                    DropInProgram.objects.filter(location_id=int(fields[1]), 
+                                                 course_id=int(fields[2]),
+                                                 date_range=fields[7]).update(
+                    location_id = fields[1],
+                    course_id = fields[2],
+                    course_title = fields[3],
+                    min_age = fields[4],
+                    max_age = fields[5],
+                    date_from = fields[6],
+                    date_range = fields[7],
+                    start_date_time = fields[8],
+                    start_hour = fields[9],
+                    start_min = fields[10],
+                    end_hour = fields[11],
+                    end_min = fields[12],
+                    category = fields[13],
+                    first_date = fields[14],
+                    last_date = fields[15],
+                )
+                else:
+                    DropInProgram.objects.create(
+                    location_id = fields[1],
+                    course_id = fields[2],
+                    course_title = fields[3],
+                    min_age = fields[4],
+                    max_age = fields[5],
+                    date_from = fields[6],
+                    date_range = fields[7],
+                    start_date_time = fields[8],
+                    start_hour = fields[9],
+                    start_min = fields[10],
+                    end_hour = fields[11],
+                    end_min = fields[12],
+                    category = fields[13],
+                    first_date = fields[14],
+                    last_date = fields[15],
+                )
 
         file.closed    
