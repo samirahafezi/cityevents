@@ -1,33 +1,55 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 from datetime import datetime
-from django.contrib.auth.decorators import login_required
 from .models import Location
 from .models import Facility
 from .models import RegisteredProgram
 from .models import DropInProgram
+from django.http import Http404
+from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import DetailView, ListView
 
-# Create your views here.
+class HomeView(TemplateView):
+    template_name = 'torontoevents/welcome.html'
+    extra_context = {'today': datetime.today()}
 
-def home(request):
-    return render(request, 'torontoevents/welcome.html', {'today': datetime.today()})
+class AuthorizedView(LoginRequiredMixin, TemplateView):
+    template_name = 'torontoevents/authorized.html'
+    login_url = '/admin'
 
-def list_locations_data(request):
-    all_locations = Location.objects.all()
-    return render(request, 'torontoevents/location_data_list.html', {'locations': all_locations})
+class LocationsListView(ListView):
+    model = Location
+    context_object_name = "locations"
+    template_name = 'torontoevents/location_data_list.html'
 
-def list_facilities_data(request):
-    all_facilities = Facility.objects.all()
-    return render(request, 'torontoevents/facility_data_list.html', {'facilities': all_facilities})
+class FacilitiesListView(ListView):
+    model = Facility
+    context_object_name = "facilities"
+    template_name = 'torontoevents/facility_data_list.html'
 
-def list_registered_programs_data(request):
-    all_registered_programs = RegisteredProgram.objects.all()
-    return render(request, 'torontoevents/registered_program_data_list.html', {'registered_programs': all_registered_programs})
+class RegisteredProgramsListView(ListView):
+    model = RegisteredProgram
+    context_object_name = "registered_programs"
+    template_name = 'torontoevents/registered_program_data_list.html'
 
-def list_dropin_programs_data(request):
-    all_dropin_programs = DropInProgram.objects.all()
-    return render(request, 'torontoevents/dropin_program_data_list.html', {'dropin_programs': all_dropin_programs})
+class RegisteredProgramDetailView(DetailView):
+    model = RegisteredProgram
+    context_object_name = "registered_program"
+    template_name = 'torontoevents/registered_program_detail.html'
 
-@login_required(login_url='/admin')
-def authorized(request):
-    return render(request, 'torontoevents/authorized.html', {})
+# def registered_program_detail(request, id):
+#     try:
+#         registered_program = RegisteredProgram.objects.get(id=id)
+#     except RegisteredProgram.DoesNotExist:
+#         raise Http404("Registered Program does not exist")
+#     return render(request, 'torontoevents/registered_program_detail.html', {'registered_program': registered_program})
+
+class DropInProgramsListView(ListView):
+    model = DropInProgram
+    context_object_name = "dropin_programs"
+    template_name = 'torontoevents/dropin_program_data_list.html'
+
+  
+def get_all_tuesday_classes(request):
+    classes = RegisteredProgram.objects.filter(days_of_the_week='Tu')
+    return render(request, 'torontoevents/registered_program_data_list.html', {'registered_programs': classes})

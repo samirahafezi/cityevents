@@ -260,3 +260,9 @@ class DropInProgram(models.Model):
                 )
 
         file.closed    
+
+class TuesdayClasses():
+    def GetAllTuesdayClasses():
+        classes = RegisteredProgram.objects.filter(days_of_the_week='Tu')
+        return classes
+    

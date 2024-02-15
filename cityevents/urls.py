@@ -22,6 +22,6 @@ from torontoevents import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('torontoevents.urls')),
+    path('toronto/', include('torontoevents.urls')),
     path('__debug__/', include('debug_toolbar.urls')),
 ]
