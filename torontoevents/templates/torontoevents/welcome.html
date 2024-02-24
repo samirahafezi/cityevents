@@ -1,7 +1,9 @@
-<html>
-    <header><title>Toronto Events</title></header>
-    <body>
-        <h1>Welcome to Toronto Events!</h1>
-        <p>Today is {{today}}</p>
-    </body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+<body>
+    <h1>Welcome to Toronto Events!</h1>
+    <p>Today is {{today}}</p>
+    <a href="{% url 'registeredprograms.list' %}" class="btn btn-primary">Registered Programs in Toronto</a>
+</body>
+{% endblock %}

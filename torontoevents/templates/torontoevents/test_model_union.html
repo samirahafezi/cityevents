@@ -1,0 +1,17 @@
+<html>
+    <h1>Concatenated Programs:</h1>
+    <table border="1px solid black" border-collapse=collapse>
+        <tr>
+            <th align ="left">Registered Course ID</th>
+            <th align ="left">Course Title</th>
+            <th align ="left">Start Date</th>
+        </tr>
+        {% for registered_program in registered_programs %}
+        <tr>
+            <td align ="left">{{joined_programs.course_id}}</td>
+            <td align ="left">{{joined_programs.course_title}}</td>
+            <td align ="left">{{joined_programs.start_date}}</td>
+         </tr>
+        {% endfor %}
+    </table>
+</html>

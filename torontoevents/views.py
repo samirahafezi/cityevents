@@ -8,6 +8,7 @@ from django.http import Http404
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView, ListView
+from itertools import chain
 
 class HomeView(TemplateView):
     template_name = 'torontoevents/welcome.html'
@@ -48,7 +49,6 @@ class DropInProgramsListView(ListView):
     model = DropInProgram
     context_object_name = "dropin_programs"
     template_name = 'torontoevents/dropin_program_data_list.html'
-
   
 def get_all_tuesday_classes(request):
     classes = RegisteredProgram.objects.filter(days_of_the_week='Tu')
