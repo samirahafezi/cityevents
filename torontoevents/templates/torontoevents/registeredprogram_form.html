@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<form action="{% url 'registeredprograms.new' %}" method='POST'>{% csrf_token %}
+<form method='POST'>{% csrf_token %}
     {{ form }}
     <button type="submit" class="btn btn-primary my-5">Submit</button>
 </form>
@@ -13,5 +13,6 @@
     {{form.errors.title.as_text}}
 </div>
 {% endif %}
+<a href="{% url 'registeredprograms.list' %}" class="btn btn-secondary my-5">Cancel</a>
 
 {% endblock %}

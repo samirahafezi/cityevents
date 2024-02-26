@@ -5,4 +5,8 @@
     <h1 class="my-5">{{registered_program.course_title}}</h1>
     <p>{{registered_program.activity_description}}</p>
 </div>
+
+<a href="{% url 'registeredprograms.list' %}" class="btn btn-secondary my-5">Back</a>
+<a href="{% url 'registeredprograms.update' pk=registered_program.pk %}" class="btn btn-secondary my-5">Update</a>
+
 {% endblock %}

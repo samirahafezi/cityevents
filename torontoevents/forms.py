@@ -29,6 +29,6 @@ class RegisteredProgramForm(forms.ModelForm):
     # In style.css we turned off default validations from django. In torontoevents/registeredprogram_form.html we are displaying it as an alert and can change the styling.
     def clean_activity_title(self):
         activity_title = self.cleaned_data['activity_title']
-        if 'Django' not in activity_title:
-            raise ValidationError('We only accept activity titles with the word Django in it')
+        # if 'Django' not in activity_title:
+        #     raise ValidationError('We only accept activity titles with the word Django in it')
         return activity_title

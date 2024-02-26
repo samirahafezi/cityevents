@@ -9,6 +9,7 @@ urlpatterns = [
     path('facilities/',views.FacilitiesListView.as_view()),
     path('registeredprograms/',views.RegisteredProgramsListView.as_view(), name="registeredprograms.list"),
     path('registeredprograms/<int:pk>',views.RegisteredProgramDetailView.as_view(), name="registeredprograms.detail"),
+    path('registeredprograms/<int:pk>/edit',views.RegisteredProgramsUpdateView.as_view(), name="registeredprograms.update"),
     path('registeredprograms/new/', views.RegisteredProgramsCreateView.as_view(), name="registeredprograms.new"),
     path('dropinprograms/',views.DropInProgramsListView.as_view()),
 ]

@@ -7,7 +7,7 @@ from .models import DropInProgram
 from django.http import Http404
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from .forms import RegisteredProgramForm
 
 class HomeView(TemplateView):
@@ -18,10 +18,15 @@ class AuthorizedView(LoginRequiredMixin, TemplateView):
     template_name = 'torontoevents/authorized.html'
     login_url = '/admin'
 
-#don't need this since the programs are coming from a file or API call but adding this here for future me to know how to do it if I need to
+#don't need the next 2 views since the programs are coming from a file or API call but adding this here for future me to know how to do it if I need to
 class RegisteredProgramsCreateView(CreateView):
     model = RegisteredProgram
     success_url = '/registeredprograms/'
+    form_class = RegisteredProgramForm
+
+class RegisteredProgramsUpdateView(UpdateView):
+    model = RegisteredProgram
+    success_url = '/toronto/registeredprograms/'
     form_class = RegisteredProgramForm
 
 class LocationsListView(ListView):
